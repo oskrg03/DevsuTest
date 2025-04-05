@@ -142,16 +142,16 @@ Sigue estos pasos para clonar el repositorio:
 
 1. Abre una terminal en tu computadora.
 2. Navega al directorio donde deseas guardar el proyecto.
-3. Clona el repositorio usando el siguiente comando (reemplaza `<URL_DEL_REPOSITORIO>` con la URL del repositorio):
+3. Clona el repositorio usando el siguiente comando (reemplaza `git@github.com:oskrg03/DevsuTest.git` con la URL del repositorio):
 
    ```bash
-   git clone <URL_DEL_REPOSITORIO>
+   git clone git@github.com:oskrg03/DevsuTest.git
    ```
 
 4. Una vez clonado el repositorio, navega al directorio del proyecto con el siguiente comando:
 
    ```bash
-   cd <nombre_del_repositorio>
+   cd DevsuTest
    ```
 
 ## 2. Construir las Imágenes de Docker

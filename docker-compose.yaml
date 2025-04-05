@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  postgres_customer:
+    image: postgres:15
+    container_name: customer-db
+    environment:
+      POSTGRES_DB: mss_customer
+      POSTGRES_USER: customer
+      POSTGRES_PASSWORD: customer123.
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata_customer:/var/lib/postgresql/data
+      - ./init_customer.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - backend
+
+  postgres_account:
+    image: postgres:15
+    container_name: account-db
+    environment:
+      POSTGRES_DB: mss_account
+      POSTGRES_USER: account
+      POSTGRES_PASSWORD: account123.
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata_account:/var/lib/postgresql/data
+      - ./init_account.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - backend
+
+  app_customer:
+    build: ./CustomerREST
+    container_name: microservicio-clientes
+    depends_on:
+      - postgres_customer
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_customer:5432/mss_customer
+      SPRING_DATASOURCE_USERNAME: customer
+      SPRING_DATASOURCE_PASSWORD: customer123.
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8082:8082"
+    networks:
+      - backend
+
+  account_service:  
+    build: ./AccountREST
+    container_name: microservicio-account
+    depends_on:
+      - postgres_account
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_account:5432/mss_account
+      SPRING_DATASOURCE_USERNAME: account
+      SPRING_DATASOURCE_PASSWORD: account123.
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8083:8083"
+    networks:
+      - backend
+      
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  pgdata_customer:
+  pgdata_account:
+

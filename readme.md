@@ -208,10 +208,12 @@ docker exec -it account-db psql -U account -d mss_account
 A continuación se encuentran los enlaces de Postman para las colecciones que contienen las pruebas de integración de los microservicios:
 
 - **Colección 1: Coleccion de endpoints de los microservicios solicitados**
-  - [Colección de postman](https://.postman.co/workspace/My-Workspace~6d695315-a305-4bd4-8acd-928d515aa86e/collection/5664088-7f5d7c42-84ae-47e2-b23c-af185c17f000?action=share&creator=5664088&active-environment=5664088-6b7a8fe1-60d1-4800-a156-f5ef809a0d7f)
+  - [Colección de postman](https://postman.co/workspace/My-Workspace~6d695315-a305-4bd4-8acd-928d515aa86e/collection/5664088-7f5d7c42-84ae-47e2-b23c-af185c17f000?action=share&creator=5664088&active-environment=5664088-6b7a8fe1-60d1-4800-a156-f5ef809a0d7f)
 
 - **Colección 2: Crear Cliente, Crear Cuenta, y Realizar Movimientos, Obtener reporte de Cliente**
-  - [Prueba de integración](https://.postman.co/workspace/My-Workspace~6d695315-a305-4bd4-8acd-928d515aa86e/collection/5664088-90bcfbd4-129b-4573-8b67-8ab26a33bf21?action=share&creator=5664088&active-environment=5664088-6b7a8fe1-60d1-4800-a156-f5ef809a0d7f)
+  - [Prueba de integración](https://postman.co/workspace/My-Workspace~6d695315-a305-4bd4-8acd-928d515aa86e/collection/5664088-90bcfbd4-129b-4573-8b67-8ab26a33bf21?action=share&creator=5664088&active-environment=5664088-6b7a8fe1-60d1-4800-a156-f5ef809a0d7f)
+
+Se dejan en los archivos del proyecto ambas colecciones.
 
 ## Instrucciones para la Prueba de Integración
 

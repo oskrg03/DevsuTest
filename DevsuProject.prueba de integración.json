@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "90bcfbd4-129b-4573-8b67-8ab26a33bf21",
+		"name": "DevsuProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5664088"
+	},
+	"item": [
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "{{host_cliente}}/clientes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"clienteId\", response.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let clienteId = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;\r",
+									"\r",
+									"pm.environment.set(\"clienteIdCrearCliente\", clienteId);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Oscar\",\r\n  \"genero\": \"Masculino\",\r\n  \"edad\": 28,\r\n  \"identificacion\": \"1143394165\",\r\n  \"direccion\": \"Planeta Rica, Córdoba\",\r\n  \"telefono\": \"+573128863890\",\r\n  \"clienteId\": {{clienteIdCrearCliente}},\r\n  \"estado\": true,\r\n  \"contrasena\": \"Oscar123.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host_cliente}}/clientes",
+							"host": [
+								"{{host_cliente}}"
+							],
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cuentas",
+			"item": [
+				{
+					"name": "{{host_cuenta}}/cuentas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"cuentaId\", response.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"numeroCuenta\": \"{{clienteId}}\",\n  \"tipoCuenta\": \"Ahorros\",\n  \"estado\": true,\n  \"saldoActual\": 20000,\n  \"clienteId\": \"{{clienteId}}\",\n  \"saldoInicial\": 20000\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host_cuenta}}/cuentas",
+							"host": [
+								"{{host_cuenta}}"
+							],
+							"path": [
+								"cuentas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reportes",
+			"item": [
+				{
+					"name": "reportes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{host_cuenta}}/reportes?clienteId={{clienteId}}&fechaInicio=2025-01-01T15%3A01%3A07&fechaFin=2025-05-01T15%3A01%3A07",
+							"host": [
+								"{{host_cuenta}}"
+							],
+							"path": [
+								"reportes"
+							],
+							"query": [
+								{
+									"key": "clienteId",
+									"value": "{{clienteId}}"
+								},
+								{
+									"key": "fechaInicio",
+									"value": "2025-01-01T15%3A01%3A07"
+								},
+								{
+									"key": "fechaFin",
+									"value": "2025-05-01T15%3A01%3A07"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movimientos",
+			"item": [
+				{
+					"name": "{{host_cuenta}}/movimientos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuentaId\": \"{{cuentaId}}\",\n  \"valor\": -1000,\n  \"tipoMovimiento\": \"RETIRO\",\n  \"descripcion\": \"Se retiran 1000\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host_cuenta}}/movimientos",
+							"host": [
+								"{{host_cuenta}}"
+							],
+							"path": [
+								"movimientos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"let clienteId = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;\r",
+					"\r",
+					"// Establecer el clienteId como una variable de entorno\r",
+					"pm.environment.set(\"clienteIdCrearCliente\", clienteId);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "clienteId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "cuentaId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "host_cliente",
+			"value": "http://localhost:8082",
+			"type": "string"
+		},
+		{
+			"key": "host_cuenta",
+			"value": "http://localhost:8083",
+			"type": "string"
+		},
+		{
+			"key": "clienteIdCrearCliente",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
